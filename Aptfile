@@ -1,0 +1,8 @@
+libpq-dev
+libcurl4-openssl-dev
+build-essential
+
+libsm6
+libxrender1
+libfontconfig1
+libice6
