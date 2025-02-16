@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Booking Cancellation Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .result h2 {
+            margin-top: 0;
+        }
+
+        .result p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .result .prediction {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Booking Cancellation Prediction</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" action="/">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Input</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Type of Meal Plan</td>
+                        <td>
+                            <select name="type_of_meal_plan" required>
+                                <option value="Meal Plan 1">Meal Plan 1</option>
+                                <option value="Meal Plan 2">Meal Plan 2</option>
+                                <option value="Meal Plan 3">Meal Plan 3</option>
+                                <option value="No Meal">No Meal</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Room Type Reserved</td>
+                    <td>
+                        <select name="room_type_reserved" required>
+                                <option value="Room Type 1">Room Type 1</option>
+                                <option value="Room Type 2">Room Type 2</option>
+                                <option value="Room Type 3">Room Type 3</option>
+                                <option value="Room Type 4">Room Type 4</option>
+                                <option value="Room Type 5">Room Type 5</option>
+                                <option value="Room Type 6">Room Type 6</option>
+                                <option value="Room Type 7">Room Type 7</option>
+                        </select>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>Market Segment Type</td>
+                        <td>
+                        <select name="market_segment_type" required>
+                            <option value="Online">Online</option>
+                            <option value="Offline">Offline</option>
+                        </select>
+                        </td>
+                    <tr>
+                        <td>Lead Time</td>
+                        <td><input type="number" name="lead_time" required step="any"></td>
+                    </tr>
+                    <tr>
+                        <td>Average Price Per Room</td>
+                        <td><input type="number" name="avg_price_per_room" required step="any"></td>
+                    </tr>
+                    <tr>
+                        <td>Number of Special Requests</td>
+                        <td><input type="number" name="no_of_special_requests" required></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if result is not none %}
+        <div class="result">
+            <h2>Prediction Result</h2>
+            <p><span class="prediction">Cancellation Prediction:</span> {{ 'Yes' if result == 1 else 'No' }}</p>
+            <p><span class="prediction">Probability:</span> {{ '%.2f'|format(prob) }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
